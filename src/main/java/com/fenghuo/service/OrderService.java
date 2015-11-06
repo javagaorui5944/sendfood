@@ -402,10 +402,8 @@ public Object  order_back_select(Long order_id,Integer operation){
 		
 	}
 
-public int boundorder(Long order_id, Long staff_id, String dormitory_name) {
-	int n=0;
-	Long dormitory_id=orderdao.getDormitory_id(staff_id,dormitory_name);
-	n=orderdao.updateOrder(order_id,dormitory_id,staff_id);
+public int boundorder(Long order_id, Long staff_id, Long dormitory_id) {
+	int n=orderdao.updateOrder(order_id,dormitory_id,staff_id);
 	return n;
 }
 }

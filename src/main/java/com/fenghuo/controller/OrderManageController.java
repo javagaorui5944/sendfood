@@ -329,8 +329,8 @@ public class OrderManageController {
 		 */
 		@RequestMapping(value="/boundorder",method=RequestMethod.POST)
 		@ResponseBody
-		public Object boundOrder(Long order_id,Long staff_id,String dormitory_name){
-			int n=orderService.boundorder(order_id,staff_id,dormitory_name);
+		public Object boundOrder(Long order_id,Long staff_id,Long dormitory_id){
+			int n=orderService.boundorder(order_id,staff_id,dormitory_id);
 			if(n==1)
 				return CommonUtil.constructResponse(1,"success",null);
 			else
