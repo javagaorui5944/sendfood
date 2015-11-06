@@ -1,0 +1,42 @@
+#footer{
+    height: 120px;
+    width: 100%;
+    background: #f4f5f7;
+    position: absolute;
+    bottom: 0;
+    color: #585858;
+}
+.footer-logo{
+    position: absolute;
+    left: 50%;
+    margin-left: -25px;
+    top:-30px;
+    width: 50px;
+    height: 60px;
+    background: url("/static/image/icon/bee_sprite.png") no-repeat -176px 0px;
+}
+.contact-telephone{
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+.our-links{
+    overflow: hidden;
+    width: 348px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.our-links li{
+    width: 60px;
+    padding:0 12px;
+    border-right: 1px solid #585858;
+    float: left;
+}
+.our-links a{
+    color:#585858;
+}
+
+li.last-link{
+    border: none;
+}

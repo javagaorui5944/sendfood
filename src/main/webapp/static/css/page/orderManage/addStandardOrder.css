@@ -1,0 +1,10 @@
+.foodListSecleted,.foodListSecleted:hover{
+    background:#fa4b00!important;
+    color:#fff!important;
+}
+#J-storageList tr{
+    cursor:pointer;
+}
+.border-red{
+    border:1px solid red;
+}

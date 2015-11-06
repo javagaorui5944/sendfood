@@ -1,0 +1,30 @@
+    .join-us-head{
+      font-size: 18px;
+      font-weight: bolder;
+      margin-bottom: 40px;
+
+    }
+    .hr-email{
+      color: ＃fa3c3c;
+    }
+    .join-us-content{
+      font-weight: bolder;
+    }
+    .join-us-content li{
+      margin-bottom: 70px;
+    }
+    .enterprice{
+      color:#fac83c;
+    }
+    .job-box{
+      margin: 25px 0;
+    }
+    .job-box h1{
+      margin-bottom: 10px;
+    }
+    .job-box p{
+      font-weight: 400;
+      font-size: 14px;
+      margin-left: 15px;
+      line-height: 2.5;
+    }

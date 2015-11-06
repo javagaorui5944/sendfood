@@ -1,0 +1,29 @@
+/*修改个人信息*/
+.info {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.form-group .errorTip {
+	float: left;
+	vertical-align: middle;
+	line-height: 30px;
+	color: red;
+}
+
+.changePass {
+	color: #4ac598;
+	cursor: pointer;
+}
+
+.passForm input {
+	
+}
+
+.passForm .col-md-9 {
+	padding-left: 1px;
+}
+
+.passForm .form-group {
+	overflow: hidden;
+}
