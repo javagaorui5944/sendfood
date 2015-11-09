@@ -123,7 +123,7 @@ public class Order_ItemController {
 		// //(gr测试新版本上行代码作废)将旧订单设置为不可用
 		long school_id = jo.getLongValue("school_id"); // 通过原标准套餐获取学校
 		String default_order_name = jo.getString("default_order_name"); // 获取新套餐的名字
-		long newDefault_order_id = jo.getLongValue("Default_order_id");
+		long newDefault_order_id = jo.getLongValue("default_order_id");
 		JSONArray array = jo.getJSONArray("OrderItem"); // 获取新套餐内容
 		/*
 		 * long newDefault_order_id =
