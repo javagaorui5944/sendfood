@@ -8,3 +8,14 @@
 .border-red{
     border:1px solid red;
 }
+.edit-options{
+    border: none;
+}
+.edit-options th{
+    border: none;
+}
+.edit-options .btn{
+    background-color: #65cea7;
+    font-size: 14px;
+    color: white;
+}
