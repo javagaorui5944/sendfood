@@ -181,6 +181,7 @@ public interface OrderDao {
 	@Update("update orders set dormitory_id=#{1},staff_id=#{2} where order_id=#{0}")
 	public int updateOrder(Long order_id, Long dormitory_id, Long staff_id);
 
+
 	
 	
 }

@@ -1,0 +1,23 @@
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+ .loading {
+    background-size: auto 50%;
+    background-image: url(/static/image/icon/loading.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-animation: spin 2s infinite linear;
+}

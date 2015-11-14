@@ -1,0 +1,14 @@
+
+/**
+*  全局样式文件
+*  2015.04.06
+***/
+
+/*******全局必须包含的样式******/
+@import "basic/reset.css";
+@import "basic/header.css";
+@import "basic/footer.css";
+@import "basic/customer.css";
+/* 表单验证框架 */
+@import "modules/cdialog.css";
+@import "modules/cloginDialog.css";

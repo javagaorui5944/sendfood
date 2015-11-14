@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import com.fenghuo.domain.Dormitory_cus;
 import com.fenghuo.domain.building;
 import com.fenghuo.domain.country;
 import com.fenghuo.domain.dormitory;
@@ -104,6 +105,9 @@ public interface organizationDao {
 	 * 根据寝室id查找员工id
 	 * 根据员工id查找他管辖寝室的数量
 	 */
+	@Select("select dormitory_id,building_id,staff_id,dormitory_name,dormitory_code,date from dormitory where staff_id=#{0} and dormitory_status=10")
+	List<Dormitory_cus> getdormitorybystaffId(long staff_id);
+	
 	@Select("select dormitory_id,building_id,staff_id,dormitory_name,dormitory_code,date from dormitory where dormitory_id=#{0} and dormitory_status=10")
 	List<dormitory> getdormitorybyId(long id);
 	

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fenghuo.dao.CustomerDao;
 import com.fenghuo.dao.organizationDao;
+import com.fenghuo.domain.Dormitory_cus;
 import com.fenghuo.domain.building;
 import com.fenghuo.domain.country;
 import com.fenghuo.domain.dormitory;
@@ -25,8 +27,9 @@ import com.fenghuo.domain.staffs;
 @Service
 public class organizationService {
 private Logger log = LoggerFactory.getLogger(UserService.class);
-	
 	@Autowired
+	private CustomerDao customerdao;
+	@Autowired 
 	private organizationDao organizationdao;
 	
 	/**
@@ -96,6 +99,8 @@ private Logger log = LoggerFactory.getLogger(UserService.class);
 				organization oS=new organization();
 				if(schools.isEmpty()){
 				}else{
+				System.out.println(b);
+				System.out.println(schools.get(b));
 				List<school> school=organizationdao.getSchoolbyId(schools.get(b));
 				oS.setId(school.get(0).getSchool_id());
 				oS.setPid(school.get(0).getRegion_id());
@@ -489,6 +494,19 @@ private Logger log = LoggerFactory.getLogger(UserService.class);
 			}
 		}
 		return x;
+	}
+	
+	public List<Dormitory_cus> listdormitory(long staff_id){
+		List<Dormitory_cus> temp=organizationdao.getdormitorybystaffId(staff_id);
+		List<Dormitory_cus> result=new ArrayList<Dormitory_cus> ();
+		long dor_id=0;
+		for(Dormitory_cus cus : temp){
+			dor_id=cus.getDormitory_id();
+			cus.setCus(customerdao.getcustomer(dor_id));
+			result.add(cus);
+			
+		}
+		return result;
 	}
 	
 	/**

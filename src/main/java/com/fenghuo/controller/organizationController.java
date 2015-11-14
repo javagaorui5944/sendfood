@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fenghuo.domain.Dormitory_cus;
 import com.fenghuo.domain.organization;
 import com.fenghuo.domain.staff;
 import com.fenghuo.service.organizationService;
@@ -92,6 +93,22 @@ public class organizationController {
 		long staff_id=sta.getStaff_id();
 		int type=sta.getStaff_rank();
 		List<organization>organization=organizationService.listOrganization(type,staff_id);
+		return CommonUtil.constructHtmlResponse(1, "success", organization);
+	} 
+	
+	
+	/**
+	 * 列出所管理的寝室
+	 * 
+	 * */
+	
+	@RequestMapping(value="/listdormitory",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject listdormitory(HttpSession request){
+		staff sta =  (staff)request.getAttribute("staff");
+		long staff_id=sta.getStaff_id();
+		int type=sta.getStaff_rank();
+		List<Dormitory_cus> organization=organizationService.listdormitory(staff_id);
 		return CommonUtil.constructHtmlResponse(1, "success", organization);
 	} 
 	

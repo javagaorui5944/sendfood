@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,8 +37,6 @@ import com.fenghuo.util.CommonUtil;
 public class Default_OrderController {
 	@Autowired
 	private Default_OrderService default_OrderService;
-	@Autowired
-	private Order_ItemService orderItemService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -121,6 +121,60 @@ public class Default_OrderController {
 
 	}
 
+	/**
+	 * family 批量  新增  订单   
+	 * @param 订单数 ordercount       默认订单号defaultorder_id 
+	 * @return 订单的id列表， 订单的期号列表
+	 * @description 订单的批量插入
+	 */
+	@RequestMapping(value = "/addOrdersBy", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject addOrder(@RequestParam("ordercount") Integer ordercount,@RequestParam("defaultorder_id") Integer defaultorder_id) {
+		Map<String,Long> newOrderId=new TreeMap<String,Long>();
+		//新建插入订单
+		Order order = new Order();
+		//根据时间进行分批分次
+		java.util.Date dt = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置显示格式
+		String nowTime="";
+		nowTime=df.format(dt);
+		for(int i=0;i<ordercount;i++){
+			order.setOrder_query_id(nowTime+" 第 "+(i+1));
+			order.setOrder_create_time(nowTime);
+			order.setOrder_note(nowTime+(i+1));
+			order.setDefault_order_id(defaultorder_id);
+			order.setOrder_status(10);
+			newOrderId.put(nowTime+" 第 "+(i+1),orderService.addOrder(order));
+		}
+		JSONObject jo = new JSONObject();
+		jo.put("orderids", newOrderId);
+		return jo;
+	}
+	
+	/**
+	 * @description 在app端进行二维码扫描的时候，将访问这个接口。将状态绑定。
+	 * @param staff_id,dormitory_id,order_id
+	 * @param sure
+	 * @return
+	 * @throws SchedulerException
+	 */
+	@RequestMapping(value = "/bindorder", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONObject bindorder(HttpSession httpSession,@RequestParam(required=false,value="staff_id")Integer staff_id,@RequestParam("dormitory_id")Integer dormitory_id,@RequestParam("order_id")Integer order_id)
+	{
+		if(staff_id==null){
+		staff staff = (staff)httpSession.getAttribute("staff");  //获取员工
+		if(staff == null){
+			return CommonUtil.constructResponse(0, "员工不存在", null);
+		}}
+		
+		
+		return null;
+		
+		
+	}
+	
+	
 	/*
 	 * 用户预定下周美食 通过用户编号获取标准订单再添加订单
 	 */
