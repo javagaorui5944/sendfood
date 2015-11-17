@@ -1,0 +1,17 @@
+访问地址addOrdersBy?defaultorder_id=1&&ordercount=4
+
+字段一：标准订单ID：defaultorder_id
+字段二：订单数量ordercount
+
+实例：
+	addOrdersBy?defaultorder_id=1&&ordercount=4
+
+返回数据:
+KEY：orderis
+value：具体的期号和ID（“期号”，orderid）
+
+{"orderids":{
+"2015-11-10 17:45:12 第 1":13,
+"2015-11-10 17:45:12 第 2":14,
+"2015-11-10 17:45:12 第 3":15,
+"2015-11-10 17:45:12 第 4":16}}

@@ -1,0 +1,21 @@
+.foodListSecleted,.foodListSecleted:hover{
+    background:#fa4b00!important;
+    color:#fff!important;
+}
+#J-storageList tr{
+    cursor:pointer;
+}
+.border-red{
+    border:1px solid red;
+}
+.edit-options{
+    border: none;
+}
+.edit-options th{
+    border: none;
+}
+.edit-options .btn{
+    background-color: #65cea7;
+    font-size: 14px;
+    color: white;
+}
