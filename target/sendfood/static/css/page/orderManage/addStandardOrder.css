@@ -7,4 +7,18 @@
 }
 .border-red{
     border:1px solid red;
+<<<<<<< HEAD
+=======
+}
+.edit-options{
+    border: none;
+}
+.edit-options th{
+    border: none;
+}
+.edit-options .btn{
+    background-color: #65cea7;
+    font-size: 14px;
+    color: white;
+>>>>>>> df40f490d101bea97b422c1afb37ba69155072c0
 }

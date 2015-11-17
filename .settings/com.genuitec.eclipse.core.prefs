@@ -1,0 +1,5 @@
+#Mon Nov 09 14:04:22 CST 2015
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/static
+validator.Revalidate=true
+validator.Unchecked=
