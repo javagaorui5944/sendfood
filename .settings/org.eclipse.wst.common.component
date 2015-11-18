@@ -12,8 +12,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="sendfood">
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
         <property name="java-output-path" value="/sendfood Maven Webapp/src/main/webapp/src/main/java"/>
         <property name="context-root" value="/sendfood"/>
 >>>>>>> df40f490d101bea97b422c1afb37ba69155072c0

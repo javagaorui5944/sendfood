@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fenghuo.dao.DormitoryDao;
 import com.fenghuo.dao.OrderDao;
 import com.fenghuo.dao.Order_ItemDao;
 import com.fenghuo.dao.Sell_itemDao;
@@ -48,6 +49,8 @@ public class OrderService {
 	
 	@Autowired
 	private Sell_itemService sell_itemService;
+	@Autowired
+	private DormitoryDao dormitorydao;
 	
 	@Autowired
 	private organizationService organizationService;
@@ -402,8 +405,9 @@ public Object  order_back_select(Long order_id,Integer operation){
 		
 	}
 
-public int boundorder(Long order_id, Long staff_id, Long dormitory_id) {
-	int n=orderdao.updateOrder(order_id,dormitory_id,staff_id);
+public int boundorder(Long order_id, Long staff_id, Long dormitory_id,String order_query_id) {
+	
+	int n=orderdao.updateOrder(order_id,dormitory_id,staff_id,order_query_id);
 	return n;
 }
 }

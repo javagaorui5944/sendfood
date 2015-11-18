@@ -178,8 +178,8 @@ public interface OrderDao {
 	@Select("select dormitory_id from dormitory where staff_id=#{0} and dormitory_name=#{1}")
 	public Long getDormitory_id(Long staff_id, String dormitory_name);
 
-	@Update("update orders set dormitory_id=#{1},staff_id=#{2} where order_id=#{0}")
-	public int updateOrder(Long order_id, Long dormitory_id, Long staff_id);
+	@Update("update orders set  dormitory_id=#{1},staff_id=#{2},order_query_id=#{3} where order_id=#{0}")
+	public int updateOrder(Long order_id, Long dormitory_id, Long staff_id,String order_query_id);
 
 
 	

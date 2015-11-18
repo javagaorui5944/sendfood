@@ -1,4 +1,4 @@
-package com.fenghuo.controller;
+﻿package com.fenghuo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,11 @@ import com.fenghuo.dao.StaffDao_common;
 import com.fenghuo.domain.Order;
 import com.fenghuo.domain.Snacks;
 import com.fenghuo.domain.staff;
+import com.fenghuo.model.codeAndAdderss;
 import com.fenghuo.quartz.BalanceJob;
 import com.fenghuo.quartz.LoadTask;
 import com.fenghuo.service.CustomerService;
+import com.fenghuo.service.Default_OrderService;
 import com.fenghuo.service.OrderService;
 import com.fenghuo.service.Order_ItemService;
 import com.fenghuo.service.Sell_itemService;
@@ -45,7 +47,8 @@ public class OrderManageController {
 	private LoadTask loadTask;
 	@Autowired
 	private Sell_itemService sellItemService;
-	
+	@Autowired
+	private Default_OrderService default_OrderService;
 	
 	@RequestMapping("/manageStandardOrder")
 	public String manageStandardOrder(HttpSession httpSession){
@@ -327,10 +330,11 @@ public class OrderManageController {
 		/*
 		 *用于绑定订单 
 		 */
-		@RequestMapping(value="/boundorder",method=RequestMethod.POST)
+		@RequestMapping(value="/boundorder",method=RequestMethod.GET)
 		@ResponseBody
 		public Object boundOrder(Long order_id,Long staff_id,Long dormitory_id){
-			int n=orderService.boundorder(order_id,staff_id,dormitory_id);
+			codeAndAdderss caa = default_OrderService.getOrderCode1(dormitory_id);
+			int n=orderService.boundorder(order_id,staff_id,dormitory_id,caa.getCode());
 			if(n==1)
 				return CommonUtil.constructResponse(1,"success",null);
 			else
