@@ -28,7 +28,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
-                        <table class="table table-bordered table-condensed table-hover table-striped">
+                        <table class="table table-bordered table-condensed table-hover table-striped" id="">
                             <thead>
                             <tr>
                                 <th>条形码</th>
@@ -50,13 +50,19 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                        <table class="table table-bordered table-condensed table-hover table-striped">
+                        <table class="table table-bordered table-condensed table-hover table-striped" id="J_downOrder">
                             <thead>
+                            <div style='visibility:hidden' id="J_qrcode"></div>
                             <tr class="edit-options">
                                 <th colspan="6">
                                     <a href="javascript:;" class="btn " id="J-orderSave">保存</a>
                                     <a href="javascript:;" class="btn " id="J-orderDelete">删除</a>
-                                    <a href="javascript:;" class="btn " id="J-orderDown">下载</a>
+                                    <div style="float:right;">
+                                        <label>请输入下载份数</label>
+                                        <input style="width:30%" type="text" class="form-control" id="J_downOrderNum"
+                                          />
+                                        <a href="javascript:;" class="btn " id="J-orderDown">下载</a>
+                                    </div>  
                                 </th>
                             </tr>
                             <tr>
