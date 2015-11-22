@@ -16,7 +16,7 @@ public interface BuildingDao {
 	/*
 	 * 根据楼栋查找楼栋code
 	 * */
-	@Select("select building_code,building_name from building where building_id=#{building_id}")
+	@Select("select building_code,building_name,school_id from building where building_id=#{building_id}")
 	 building getBuildingCode(long building_id);
 	
 			/*
