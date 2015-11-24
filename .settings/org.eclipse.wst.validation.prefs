@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+disabled=06target
+eclipse.preferences.version=1
+=======
+#Mon Nov 09 16:39:06 CST 2015
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_BUILD_PREFERENCE=enabledBuildValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
+USER_MANUAL_PREFERENCE=enabledManualValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
+USER_PREFERENCE=overrideGlobalPreferencestruedisableAllValidationfalseversion1.2.300.me201108091322
+disabled=06target
+eclipse.preferences.version=1
+override=true
+suspend=false
+vals/org.eclipse.wst.jsdt.web.core.PureJSValidator/global=FF01
+vf.version=3
+>>>>>>> df40f490d101bea97b422c1afb37ba69155072c0
