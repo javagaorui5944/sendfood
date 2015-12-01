@@ -422,12 +422,8 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             },
             //下载订单
             _orderListDown: function () {
-                request.get('/order/addOrdersBy',{defaultorder_id:50,ordercount:7},function(resp){
-                    debugger;
-                    console.log(resp);
-                    if(resp){}
-                });
                 var self = this;
+
                 $("#J-orderDown").click(function () {
                     //检查是否输入下载份数
                     var downNum = $("#J_downOrderNum").val();
@@ -475,30 +471,30 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             //下载订单到本地
             _downOrderLocal:function  (id,num) {
                 var opt = {};
-                    opt.defaultorder_id = id;
+                    opt.defaultorder_id = 2;
                     opt.ordercount = num;
-                //$('#J_qrcode').qrcode({width:200,height:200,text:'dddd'});     
-                // request.get('/order/addOrdersBy',opt,function(resp){
-                //     debugger;
-                //     console.log(resp);
-                //     if(resp){}
-                // });
-                var  testData = [
-                                    {"2015-11-10 17:45:12 第 1":13},
-                                    {"2015-11-10 17:45:12 第 2":14}
-                                    ]
-                                                
-                 
-                for(var i =0;i<testData.length;i++){
-                    this._downOrder(testData[i]); 
-                } 
+                var self = this;
+                    
+                request.get('/order/addOrdersBy',opt,function(resp){
+                    if(resp.orderids){
+                        $.each(resp.orderids,function(key,value){
+                            console.log(value);
+                            //value，是订单的id值
+                            self._downOrder(value); 
+                        })
+                    }
+                });              
             },
             //拼接二维码及订单并且下载一份
             _downOrder: function(str){
                  var canvas,
-                     order = '<html>'+$("#J_downOrder").html()+'</html>',
+                     order,
                      img = new Image();
 
+                 //先移除编辑栏
+                 $("#J_edit_options").remove();
+                 order = '<html>'+$("#J_downOrder").html()+'</html>';
+                 console.log(order);
                  $('#J_qrcode').qrcode({width:200,height:200,text:str}); 
                  canvas = $("#J_qrcode > canvas")[0];
                  img.src = canvas.toDataURL("image/png");

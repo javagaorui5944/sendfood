@@ -52,8 +52,8 @@
                     <div class="col-md-6 col-sm-6">
                         <table class="table table-bordered table-condensed table-hover table-striped" id="J_downOrder">
                             <thead>
-                            <div style='visibility:hidden' id="J_qrcode"></div>
-                            <tr class="edit-options">
+                            <div style='' id="J_qrcode"></div>
+                            <tr class="edit-options" id="J_edit_options">
                                 <th colspan="6">
                                     <a href="javascript:;" class="btn " id="J-orderSave">保存</a>
                                     <a href="javascript:;" class="btn " id="J-orderDelete">删除</a>
