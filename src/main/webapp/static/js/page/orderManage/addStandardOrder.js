@@ -423,7 +423,6 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             //下载订单
             _orderListDown: function () {
                 var self = this;
-
                 $("#J-orderDown").click(function () {
                     //检查是否输入下载份数
                     var downNum = $("#J_downOrderNum").val();
@@ -474,14 +473,26 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                     opt.defaultorder_id = 2;
                     opt.ordercount = num;
                 var self = this;
-                    
+                var that = {};
+                    that._downOrder = this._downOrder;
+                    that.count = 0;
+                    that.orderId = [];
                 request.get('/order/addOrdersBy',opt,function(resp){
                     if(resp.orderids){
                         $.each(resp.orderids,function(key,value){
-                            console.log(value);
-                            //value，是订单的id值
-                            self._downOrder(value); 
-                        })
+                            that.orderId.push(value);
+                        });
+                        that.num = that.orderId.length;
+                        that.itvalId = setInterval(function(){
+                             that.count++;
+                             if(that.count === that.num){
+                                clearInterval(that.itvalId)
+                                setTimeout(function(){
+                                    location.reload();
+                                },5000);
+                             }
+                             that._downOrder(that.orderId[that.count-1]);
+                        },3000)
                     }
                 });              
             },
@@ -490,15 +501,16 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                  var canvas,
                      order,
                      img = new Image();
-
+                
                  //先移除编辑栏
                  $("#J_edit_options").remove();
-                 order = '<html>'+$("#J_downOrder").html()+'</html>';
-                 console.log(order);
+                 $("#J-defaultList .foodManage").html("");
+                 $("#J-defaultList .J_foodManage").html("吃货大名");
                  $('#J_qrcode').qrcode({width:200,height:200,text:str}); 
                  canvas = $("#J_qrcode > canvas")[0];
                  img.src = canvas.toDataURL("image/png");
                  $("#J_qrcode").html(img);
+                 order = '<html><table>'+$("#J_downOrder").html()+'</table></html>';
                  xdoc.run(order, "docx", {}, "_blank");
             }
         };
