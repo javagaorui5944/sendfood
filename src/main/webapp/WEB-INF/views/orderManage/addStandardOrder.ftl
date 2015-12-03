@@ -49,11 +49,11 @@
                             <button type="submit" class="btn btn-default hide" id="J-addStardOrder">增加标准订单</button>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6" Id="J_downOrder">
                         <table class="table table-bordered table-condensed table-hover table-striped" id="J_downOrder">
                             <thead>
-                            <div style='visibility:hidden' id="J_qrcode"></div>
-                            <tr class="edit-options">
+                            <div style='' id="J_qrcode"></div>
+                            <tr class="edit-options" id="J_edit_options">
                                 <th colspan="6">
                                     <a href="javascript:;" class="btn " id="J-orderSave">保存</a>
                                     <a href="javascript:;" class="btn " id="J-orderDelete">删除</a>
@@ -71,7 +71,7 @@
                                 <th>成本价</th>
                                 <th>售价</th>
                                 <th>商品数量</th>
-                                <th>操作(只能修改本次的数量)</th>
+                                <th class="J_foodManage">操作(只能修改本次的数量)</th>
                             </tr>
                             </thead>
                             <tbody id="J-defaultList">

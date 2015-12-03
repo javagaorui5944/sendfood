@@ -422,11 +422,6 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             },
             //下载订单
             _orderListDown: function () {
-                request.get('/order/addOrdersBy',{defaultorder_id:50,ordercount:7},function(resp){
-                    debugger;
-                    console.log(resp);
-                    if(resp){}
-                });
                 var self = this;
                 $("#J-orderDown").click(function () {
                     //检查是否输入下载份数
@@ -475,35 +470,51 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             //下载订单到本地
             _downOrderLocal:function  (id,num) {
                 var opt = {};
-                    opt.defaultorder_id = id;
+                    opt.defaultorder_id = 2;
                     opt.ordercount = num;
-                //$('#J_qrcode').qrcode({width:200,height:200,text:'dddd'});     
-                // request.get('/order/addOrdersBy',opt,function(resp){
-                //     debugger;
-                //     console.log(resp);
-                //     if(resp){}
-                // });
-                var  testData = [
-                                    {"2015-11-10 17:45:12 第 1":13},
-                                    {"2015-11-10 17:45:12 第 2":14}
-                                    ]
-                                                
-                 
-                for(var i =0;i<testData.length;i++){
-                    this._downOrder(testData[i]); 
-                } 
+                var self = this;
+                var that = {};
+                    that._downOrder = this._downOrder;
+                    that.count = 0;
+                    that.orderId = [];
+                request.get('/order/addOrdersBy',opt,function(resp){
+                    if(resp.orderids){
+                        $.each(resp.orderids,function(key,value){
+                            that.orderId.push(value);
+                        });
+                        that.num = that.orderId.length;
+                        that.itvalId = setInterval(function(){
+                             that.count++;
+                             if(that.count === that.num){
+                                clearInterval(that.itvalId)
+                                setTimeout(function(){
+                                    location.reload();
+                                },5000);
+                             }
+                             that._downOrder(that.orderId[that.count-1]);
+                        },3000)
+                    }
+                });              
             },
             //拼接二维码及订单并且下载一份
             _downOrder: function(str){
                  var canvas,
-                     order = '<html>'+$("#J_downOrder").html()+'</html>',
+                     order,
                      img = new Image();
-
+                
+                 //先移除编辑栏
+                 $("#J_edit_options").remove();
+                 $("#J-defaultList .foodManage").html("");
+                 $("#J-defaultList .J_foodManage").html("吃货大名");
                  $('#J_qrcode').qrcode({width:200,height:200,text:str}); 
                  canvas = $("#J_qrcode > canvas")[0];
                  img.src = canvas.toDataURL("image/png");
                  $("#J_qrcode").html(img);
+<<<<<<< HEAD
                  $("#J_qrcode").css("visibility","display");
+=======
+                 order = '<html><table>'+$("#J_downOrder").html()+'</table></html>';
+>>>>>>> 3291ac1263eb56c650ce2e9769b3cf2121e11424
                  xdoc.run(order, "docx", {}, "_blank");
                  
                  
