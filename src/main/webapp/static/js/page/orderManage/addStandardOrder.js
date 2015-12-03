@@ -503,8 +503,21 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                  canvas = $("#J_qrcode > canvas")[0];
                  img.src = canvas.toDataURL("image/png");
                  $("#J_qrcode").html(img);
+                 $("#J_qrcode").css("visibility","display");
                  xdoc.run(order, "docx", {}, "_blank");
+                 
+                 
+                 var oWD = new ActiveXObject("Word.Application");
+                 var oDC = oWD.Documents.Add("",0,1);
+                 var oRange =oDC.Range(0,1);
+                 var sel = document.body.createTextRange();
+                 sel.moveToElementText(J_downOrder);
+                 sel.select();
+                 sel.execCommand("Copy");
+                 oRange.Paste();
+                 oWD.Application.Visible = true;
             }
+           
         };
 
         //构造函数
