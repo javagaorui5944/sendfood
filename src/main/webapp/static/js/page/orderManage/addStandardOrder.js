@@ -12,7 +12,7 @@ require.config({
 require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
         , 'util/Headertip', 'widget/AjaxPager', 'lib/juicer','lib/jq-qrcode','xdoc'],
     function ($, baseModule, request, bridge, Headertip, AjaxPager,jc,qrcode,xdoc) {
-
+		var orders="";
         var add = {
             init: function () {
                 add._initSchoolSelect();//初始化学校下拉框
@@ -381,10 +381,12 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                     }, function (res) {
                         if (1 == res.code) {
                             Headertip.success("保存标准订单成功", true, 4000);
+                            window.location.reload();
                         } else {
                             Headertip.error(res.msg, true, 4000);
                         }
                     });
+                    
                 })
             },
             //删除标准订单
@@ -475,29 +477,34 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                 var self = this;
                 var that = {};
                     that._downOrder = this._downOrder;
-                    that.count = 0;
+                    that.count = -1;
                     that.orderId = [];
+                    that.orderinfo = [];
                 request.get('/order/addOrdersBy',opt,function(resp){
                     if(resp.orderids){
                         $.each(resp.orderids,function(key,value){
                             that.orderId.push(value);
+                            that.orderinfo.push(key);
                         });
                         that.num = that.orderId.length;
                         that.itvalId = setInterval(function(){
                              that.count++;
                              if(that.count === that.num){
+                            	 
                                 clearInterval(that.itvalId)
+                                 orders = orders;
+                                xdoc.run(orders, "docx", {}, "_blank");
                                 setTimeout(function(){
                                     location.reload();
                                 },5000);
                              }
-                             that._downOrder(that.orderId[that.count-1]);
+                             that._downOrder(that.orderinfo[that.count],that.orderId[that.count]);
                         },3000)
                     }
                 });              
             },
             //拼接二维码及订单并且下载一份
-            _downOrder: function(str){
+            _downOrder: function(info,str){
                  var canvas,
                      order,
                      img = new Image();
@@ -506,27 +513,15 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                  $("#J_edit_options").remove();
                  $("#J-defaultList .foodManage").html("");
                  $("#J-defaultList .J_foodManage").html("吃货大名");
-                 $('#J_qrcode').qrcode({width:200,height:200,text:str}); 
+                 $('#J_qrcode').qrcode({width:60,height:60,text:str+""}); 
                  canvas = $("#J_qrcode > canvas")[0];
                  img.src = canvas.toDataURL("image/png");
                  $("#J_qrcode").html(img);
-<<<<<<< HEAD
-                 $("#J_qrcode").css("visibility","display");
-=======
-                 order = '<html><table>'+$("#J_downOrder").html()+'</table></html>';
->>>>>>> 3291ac1263eb56c650ce2e9769b3cf2121e11424
-                 xdoc.run(order, "docx", {}, "_blank");
-                 
-                 
-                 var oWD = new ActiveXObject("Word.Application");
-                 var oDC = oWD.Documents.Add("",0,1);
-                 var oRange =oDC.Range(0,1);
-                 var sel = document.body.createTextRange();
-                 sel.moveToElementText(J_downOrder);
-                 sel.select();
-                 sel.execCommand("Copy");
-                 oRange.Paste();
-                 oWD.Application.Visible = true;
+                 $("#J_info").html(info);
+                 order = '<html height=\'100%\'><table>'+$("#J_downOrder").html()+'</table></html>';
+                 orders+=order;
+               //  xdoc.run(order, "docx", {}, "_blank");
+
             }
            
         };

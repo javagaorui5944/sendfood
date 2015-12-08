@@ -52,7 +52,14 @@
                     <div class="col-md-6 col-sm-6" Id="J_downOrder">
                         <table class="table table-bordered table-condensed table-hover table-striped" id="J_downOrder">
                             <thead>
-                            <div style='' id="J_qrcode"></div>
+                             <tr >
+                                <th colspan="5" id="J_info">
+                               
+                            	</th>
+                             	<th>
+                             		<div style='' id="J_qrcode"></div> 
+                            	 </th>  
+                            </tr>
                             <tr class="edit-options" id="J_edit_options">
                                 <th colspan="6">
                                     <a href="javascript:;" class="btn " id="J-orderSave">保存</a>
@@ -65,7 +72,7 @@
                                     </div>  
                                 </th>
                             </tr>
-                            <tr>
+                            <tr id="J_downloadtable">
                                 <th>商品条形码</th>
                                 <th>商品名</th>
                                 <th>成本价</th>
