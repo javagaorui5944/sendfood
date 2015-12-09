@@ -1,10 +1,18 @@
+
 require.config({
-    baseUrl: BEEN.STATIC_ROOT
+    baseUrl: BEEN.STATIC_ROOT,
+    paths:{
+        'xdoc':'http://xdoc.aliapp.com/xdoc'
+    },
+    shim:{
+        'lib/jq-qrcode':['lib/jquery'],
+        'xdoc':{exports:'XDoc'}
+    }
 });
 require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
-        , 'util/Headertip', 'widget/AjaxPager', 'lib/juicer'],
-    function ($, baseModule, request, bridge, Headertip, AjaxPager) {
-
+        , 'util/Headertip', 'widget/AjaxPager', 'lib/juicer','lib/jq-qrcode','xdoc'],
+    function ($, baseModule, request, bridge, Headertip, AjaxPager,jc,qrcode,xdoc) {
+		var orders="";
         var add = {
             init: function () {
                 add._initSchoolSelect();//初始化学校下拉框
@@ -373,10 +381,12 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                     }, function (res) {
                         if (1 == res.code) {
                             Headertip.success("保存标准订单成功", true, 4000);
+                            window.location.reload();
                         } else {
                             Headertip.error(res.msg, true, 4000);
                         }
                     });
+                    
                 })
             },
             //删除标准订单
@@ -394,6 +404,8 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
                         return;
                     }
                     var default_order_id = $("#J-orderSelect").val().split(",")[3];
+                    console.log("订单号");
+                    console.log(default_order_id);
                     if(confirm("确认删除吗？")){
                         request.post("/OrderItem/deleteDefaultOrder", {
                             default_order_id: default_order_id
@@ -412,11 +424,106 @@ require(['lib/jquery', 'modules/baseModule', 'util/request', 'modules/bridge'
             },
             //下载订单
             _orderListDown: function () {
+                var self = this;
                 $("#J-orderDown").click(function () {
-                    if(confirm("订单保存后才能下载哦，若未保存请点击取消")){
-                    }
+                    //检查是否输入下载份数
+                    var downNum = $("#J_downOrderNum").val();
+                    var isNum = /^[1-9][0-9]*$/g.test(downNum);
+                    if(!isNum){return}
+
+                    //先检查当前页面的订单是否已经保存到数据库
+                    var orderId = $("#J-orderSelect").val().split(",")[3];
+                    var schoolId = $("#J-schoolSelect").val().split(",")[0];
+    
+                    if(!orderId&&!schoolId){ return ;}
+                    request.get("/order/getDefaultOrderBySchId",
+                        {school_id: schoolId},function (resp) {
+                             if(resp.code == 1){
+                                 var currentFood = []; //存储当前页面上的食物清单
+                                 var i = 0;    
+                                 var orderList = resp.data;
+                                 var orderFood;//从后台获取订单食物列表
+                                 var orderFoodItem = [];
+ 
+                                 $("#J-defaultList tr").each(function (i) {
+                                     var foodId = $(this).attr("snacks_id");
+                                     if(foodId){currentFood.push(foodId)}
+                                 });
+
+                                 for(;i<orderList.length;i++){
+                                     if(orderList[i].default_order_id == orderId){
+                                         orderFood = orderList[i].orderItems;
+                                     }
+                                 } 
+                                 $.each(orderFood,function (index,value) {
+                                     orderFoodItem.push(value["snacks_id"]);
+                                 }) 
+                                 
+                                 if( currentFood.sort().toString() === orderFoodItem.sort().toString() ){
+                                     
+                                     self._downOrderLocal(orderId,downNum);
+                                 }else{
+                                     Headertip.error("请先保存订单才能下载", true, 3000);
+                                 }
+                             }      
+                    });
                 });
+            },
+            //下载订单到本地
+            _downOrderLocal:function  (id,num) {
+                var opt = {};
+                    opt.defaultorder_id = 2;
+                    opt.ordercount = num;
+                var self = this;
+                var that = {};
+                    that._downOrder = this._downOrder;
+                    that.count = -1;
+                    that.orderId = [];
+                    that.orderinfo = [];
+                request.get('/order/addOrdersBy',opt,function(resp){
+                    if(resp.orderids){
+                        $.each(resp.orderids,function(key,value){
+                            that.orderId.push(value);
+                            that.orderinfo.push(key);
+                        });
+                        that.num = that.orderId.length;
+                        that.itvalId = setInterval(function(){
+                             that.count++;
+                             if(that.count === that.num){
+                            	 
+                                clearInterval(that.itvalId)
+                                 orders = orders;
+                                xdoc.run(orders, "docx", {}, "_blank");
+                                setTimeout(function(){
+                                    location.reload();
+                                },5000);
+                             }
+                             that._downOrder(that.orderinfo[that.count],that.orderId[that.count]);
+                        },3000)
+                    }
+                });              
+            },
+            //拼接二维码及订单并且下载一份
+            _downOrder: function(info,str){
+                 var canvas,
+                     order,
+                     img = new Image();
+                
+                 //先移除编辑栏
+                 $("#J_edit_options").remove();
+                 $("#J-defaultList .foodManage").html("");
+                 $("#J-defaultList .J_foodManage").html("吃货大名");
+                 $('#J_qrcode').qrcode({width:60,height:60,text:str+""}); 
+                 canvas = $("#J_qrcode > canvas")[0];
+                 img.src = canvas.toDataURL("image/png");
+                 $("#J_qrcode").html(img);
+                 $("#J_info").html(info);
+                 order = '<html height=\'100%\'><table>'+$("#J_downOrder").html()+'</table></html>';
+                 orders+=order;
+               //  xdoc.run(order, "docx", {}, "_blank");
+
             }
+           
         };
 
         //构造函数

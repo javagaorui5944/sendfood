@@ -58,6 +58,20 @@ public class Default_OrderService {
 				+ dormitory.getDormitory_name());
 		return caa;
 	}
+	public codeAndAdderss getOrderCode1(	long dormitory_id) {
+		
+		dormitory dormitory = dormitoryDao.getDormitoryCode(dormitory_id);
+		building building = buildingDao.getBuildingCode(dormitory.getBuilding_id());
+		school school = schoolDao.getSchoolCode(building.getSchool_id());//inner joinschool on building.school_id=school.school_id 
+		
+		codeAndAdderss caa = new codeAndAdderss();
+		caa.setCode(school.getSchool_code() + "-" + building.getBuilding_code()
+				+ "-" + dormitory.getDormitory_code());
+		caa.setAddress(school.getSchool_name() + "-"
+				+ building.getBuilding_name() + "-"
+				+ dormitory.getDormitory_name());
+		return caa;
+	}
 
 	public List<Default_order> getDefaultOrderBySchId(long school_id,
 			int default_order_status) {

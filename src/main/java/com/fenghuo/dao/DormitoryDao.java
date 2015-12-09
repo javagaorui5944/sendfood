@@ -15,7 +15,7 @@ public interface DormitoryDao {
 	/*
 	 * 根据楼栋查找楼栋code
 	 * */
-	@Select("select dormitory_code,dormitory_name from dormitory where dormitory_id=#{dormitory_id}")
+	@Select("select dormitory_code,dormitory_name,building_id from dormitory where dormitory_id=#{dormitory_id}")
 	 dormitory getDormitoryCode(long building_id);
 	/*
 	 * 根据员工编号查找其所负责的寝室里的员工

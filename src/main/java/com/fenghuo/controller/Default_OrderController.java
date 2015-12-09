@@ -140,6 +140,7 @@ public class Default_OrderController {
 		nowTime=df.format(dt);
 		for(int i=0;i<ordercount;i++){
 			order.setOrder_query_id(nowTime+" 第 "+(i+1));
+			System.out.println(nowTime+" 第 "+(i+1));
 			order.setOrder_create_time(nowTime);
 			order.setOrder_note(nowTime+(i+1));
 			order.setDefault_order_id(defaultorder_id);

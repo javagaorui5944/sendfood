@@ -1,9 +1,0 @@
-/*选择器*/
-.J-select-parent{position: relative;display: inline-block;width: 100%;}
-.J-select-span{display: none;min-height:0!important;padding: 2px;width:auto;height:23px;min-height:23px;background: #2698e0;color: #fff;cursor:pointer;position:absolute;}
-.J-em-delete:before{content:'\00d7';margin:0 3px;text-align: center;display: inline-block;}
-.J-em-delete:hover{color: #000;}
-.s-active{background: blue;color:#fff;}
-
-.typeahead{max-height: 200px;overflow-y:auto;border:1px solid #eee; }
-.typeahead li.active a{background:#2698e0!important;color:#fff!important;}
