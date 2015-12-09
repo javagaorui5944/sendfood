@@ -157,7 +157,7 @@ public class OrderManageDao {
 	}
 
 	public static String getOrderManageByPhone_1(Map<String, Object> params) {
-		String SELECT_KEYS = "order_id,order_query_id,default_order_id,order_create_time,orders.staff_id,order_note,"
+		String SELECT_KEYS = "order_id,order_query_id,orders.default_order_id,order_create_time,orders.staff_id,order_note,"
 				+ "order_create_time,order_cost_money,order_status,orders.dormitory_id,"
 				+ "dormitory_name,dormitory.building_id,building_name,building.school_id,school_name ";
 		BEGIN();
