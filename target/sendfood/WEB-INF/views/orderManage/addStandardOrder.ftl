@@ -28,7 +28,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
-                        <table class="table table-bordered table-condensed table-hover table-striped">
+                        <table class="table table-bordered table-condensed table-hover table-striped" id="">
                             <thead>
                             <tr>
                                 <th>条形码</th>
@@ -49,23 +49,36 @@
                             <button type="submit" class="btn btn-default hide" id="J-addStardOrder">增加标准订单</button>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6">
-                        <table class="table table-bordered table-condensed table-hover table-striped">
+                    <div class="col-md-6 col-sm-6" Id="J_downOrder">
+                        <table class="table table-bordered table-condensed table-hover table-striped" id="J_downOrder">
                             <thead>
-                            <tr class="edit-options">
+                             <tr >
+                                <th colspan="5" id="J_info">
+                               
+                            	</th>
+                             	<th>
+                             		<div style='' id="J_qrcode"></div> 
+                            	 </th>  
+                            </tr>
+                            <tr class="edit-options" id="J_edit_options">
                                 <th colspan="6">
                                     <a href="javascript:;" class="btn " id="J-orderSave">保存</a>
                                     <a href="javascript:;" class="btn " id="J-orderDelete">删除</a>
-                                    <a href="javascript:;" class="btn " id="J-orderDown">下载</a>
+                                    <div style="float:right;">
+                                        <label>请输入下载份数</label>
+                                        <input style="width:30%" type="text" class="form-control" id="J_downOrderNum"
+                                          />
+                                        <a href="javascript:;" class="btn " id="J-orderDown">下载</a>
+                                    </div>  
                                 </th>
                             </tr>
-                            <tr>
+                            <tr id="J_downloadtable">
                                 <th>商品条形码</th>
                                 <th>商品名</th>
                                 <th>成本价</th>
                                 <th>售价</th>
                                 <th>商品数量</th>
-                                <th>操作(只能修改本次的数量)</th>
+                                <th class="J_foodManage">操作(只能修改本次的数量)</th>
                             </tr>
                             </thead>
                             <tbody id="J-defaultList">
