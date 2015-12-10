@@ -36,7 +36,7 @@ public interface Order_ItemDao {
 			+ "(select default_order_id from orders where order_id = #{order_id})")
 	public List<Snacks> getOrderitemByDefaultOrderId_4(long order_id);
 	
-	@Select("select sell_item.snacks_id,snacks_number,storage_id,snacks_name,snacks_bar_code,snacks_pic,snacks_cost_price"
+	@Select("select sell_item.snacks_id,snacks_number,storage_id,snacks_name,snacks_bar_code,snacks_pic,snacks_cost_price,"
 			+ "snacks_sell_price,snacks_stock_number,snacks_status from sell_item"
 			+ " inner join snacks on sell_item.snacks_id=snacks.snacks_id where order_id=#{orderId}")
 	public List<Snacks> getSellitemByOrderId(long orderId);
